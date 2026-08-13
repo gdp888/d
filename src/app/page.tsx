@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -71,14 +72,17 @@ const CHILDREN = [
 
 const POSTS = [
   {
+    slug: 'pomoshch-blagotvoritelnost',
     title: 'КАЖДЫЙ ИЗ ВАС МОЖЕТ СТАТЬ ЧАСТЬЮ НАШИХ ПРОЕКТОВ',
     text: 'Вы можете выбрать любой удобный способ для добровольных пожертвований. ВМЕСТЕ МЫ СДЕЛАЕМ МИР ДОБРЕЕ! Отправить пожертвования можно по нашим реквизитам или через приложение банка по QR-коду.',
     date: '13 авг 2026',
     reactions: 14,
     comments: 0,
     image: '/images/post_qr_code.jpg',
+    hasDonation: true,
   },
   {
+    slug: 'novyy-videoklip-fonda',
     title: 'Новый видеоклип фонда',
     text: 'БФ «Достижение-Дети» продолжает рассказывать о своей работе. Смотрите наш новый клип и делитесь с друзьями — чем больше людей узнает, тем больше помощи мы сможем оказать.',
     date: '8 авг 2026',
@@ -87,6 +91,7 @@ const POSTS = [
     image: '/images/post_charity_work.jpg',
   },
   {
+    slug: 'prazdnik-dlya-nashih-podopechnyh',
     title: 'Праздник для наших подопечных',
     text: 'Очередной замечательный праздник для детей! Радость, улыбки и тепло — вот то, ради чего мы работаем каждый день. Спасибо всем, кто помогает делать эти моменты возможными.',
     date: '29 июл 2026',
@@ -95,6 +100,7 @@ const POSTS = [
     image: '/images/post_event_1.jpg',
   },
   {
+    slug: 'nashi-deti-nasha-gordost',
     title: 'Наши дети — наша гордость',
     text: 'Каждый день мы видим, как наши подопечные делают маленькие шаги к большим целям. И каждый такой шаг — это победа, которая стала возможной благодаря вашей поддержке.',
     date: '27 июл 2026',
@@ -542,48 +548,59 @@ export default function Home() {
                 Новости
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold">
-                Последние события фонда
+                Последние новости фонда
               </h2>
               <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
-                Будьте в курсе нашей работы и событий из жизни подопечных
+                4 последних поста из нашей группы ВКонтакте — нажмите на карточку, чтобы прочитать полностью
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {POSTS.map((post, i) => (
-                <Card key={i} className="flex flex-col hover:shadow-md transition-shadow overflow-hidden">
-                  {post.image && (
-                    <div className="h-40 overflow-hidden">
-                      <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {POSTS.filter(post => post.slug).map((post, i) => (
+                <Link key={i} href={`/posts/${post.slug}`} className="group block">
+                  <Card className="flex flex-col hover:shadow-lg transition-all duration-300 overflow-hidden border-transparent hover:border-primary/30 h-full">
+                    {post.image && (
+                      <div className="h-44 overflow-hidden">
+                        <img 
+                          src={post.image} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                        />
+                      </div>
+                    )}
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                        <span>{post.date}</span>
+                        {post.hasDonation && (
+                          <Badge variant="secondary" className="text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
+                            <Heart className="h-3 w-3 mr-1 fill-current" />
+                            Сбор
+                          </Badge>
+                        )}
+                      </div>
+                      <CardTitle className="text-base leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                        {post.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <p className="text-sm text-muted-foreground line-clamp-3">
+                        {post.text}
+                      </p>
+                    </CardContent>
+                    <div className="px-6 pb-4 flex items-center justify-between text-xs text-muted-foreground">
+                      <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-1">
+                          <Heart className="h-3 w-3" /> {post.reactions}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageCircle className="h-3 w-3" /> {post.comments}
+                        </span>
+                      </div>
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary font-medium">
+                        Читать →
+                      </span>
                     </div>
-                  )}
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-                      <span>{post.date}</span>
-                      {post.hasDonation && (
-                        <Badge variant="secondary" className="text-xs">
-                          <Heart className="h-3 w-3 mr-1 fill-primary text-primary" />
-                          Сбор средств
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-base leading-snug">
-                      {post.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex-1">
-                    <p className="text-sm text-muted-foreground line-clamp-4">
-                      {post.text}
-                    </p>
-                  </CardContent>
-                  <div className="px-6 pb-4 flex items-center gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Heart className="h-3 w-3" /> {post.reactions}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <MessageCircle className="h-3 w-3" /> {post.comments}
-                    </span>
-                  </div>
-                </Card>
+                  </Card>
+                </Link>
               ))}
             </div>
             <div className="text-center mt-8">
