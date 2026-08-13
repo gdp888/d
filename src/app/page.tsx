@@ -34,6 +34,15 @@ const GROUP = {
     'Мы верим, что каждый ребёнок заслуживает счастливого и здорового детства! Фонд «Достижение-Дети» стремится к прозрачности и открытости в работе, регулярно отчитываясь перед нашими благотворителями и партнёрами.',
 }
 
+const IMAGES = {
+  cover: '/images/cover.jpg',
+  charity1: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f82e91812815.jpg',
+  charity2: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b8b4c8eeb980.jpg',
+  rehab: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4abb320963fe.jpg',
+  children: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5c2dbc79a225.jpg',
+  therapy: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c0abd6998fb8.jpg',
+}
+
 const BANK = {
   name: 'БФ «ДОСТИЖЕНИЕ-ДЕТИ»',
   inn: '6382076793',
@@ -63,6 +72,7 @@ const POSTS = [
     date: '13 авг 2026',
     reactions: 14,
     comments: 0,
+    image: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2780336d22a2.png',
   },
   {
     title: 'Новый видеоклип фонда',
@@ -70,6 +80,7 @@ const POSTS = [
     date: '8 авг 2026',
     reactions: 4,
     comments: 3,
+    image: IMAGES.therapy,
   },
   {
     title: 'Праздник для наших подопечных',
@@ -77,6 +88,7 @@ const POSTS = [
     date: '29 июл 2026',
     reactions: 10,
     comments: 1,
+    image: IMAGES.children,
   },
   {
     title: 'Наши дети — наша гордость',
@@ -84,6 +96,7 @@ const POSTS = [
     date: '27 июл 2026',
     reactions: 35,
     comments: 4,
+    image: IMAGES.rehab,
   },
   {
     title: 'Новая реабилитация',
@@ -92,6 +105,7 @@ const POSTS = [
     reactions: 14,
     comments: 2,
     hasDonation: true,
+    image: IMAGES.charity1,
   },
   {
     title: 'Отчёт о проделанной работе',
@@ -99,6 +113,7 @@ const POSTS = [
     date: '17 июл 2026',
     reactions: 26,
     comments: 1,
+    image: IMAGES.charity2,
   },
   {
     title: 'Возвращайся с новыми силами!',
@@ -168,9 +183,15 @@ export default function Home() {
       <main className="flex-1">
         {/* ─── Hero Section ─── */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/20 to-transparent" />
-          <div className="absolute top-20 right-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+          {/* Cover image background */}
+          <div className="absolute inset-0">
+            <img
+              src={IMAGES.cover}
+              alt="Обложка фонда Достижение-Дети"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/40" />
+          </div>
           <div className="container relative mx-auto px-4 py-20 md:py-32">
             <div className="max-w-3xl">
               <Badge variant="secondary" className="mb-4 text-sm px-3 py-1">
@@ -235,7 +256,10 @@ export default function Home() {
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              <Card className="border-primary/20">
+              <Card className="border-primary/20 overflow-hidden">
+                <div className="h-40 overflow-hidden">
+                  <img src={IMAGES.charity1} alt="Помощь детям" className="w-full h-full object-cover" />
+                </div>
                 <CardHeader>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
                     <Heart className="h-6 w-6 text-primary" />
@@ -250,7 +274,10 @@ export default function Home() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20">
+              <Card className="border-primary/20 overflow-hidden">
+                <div className="h-40 overflow-hidden">
+                  <img src={IMAGES.rehab} alt="Реабилитация детей" className="w-full h-full object-cover" />
+                </div>
                 <CardHeader>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
                     <Activity className="h-6 w-6 text-primary" />
@@ -265,7 +292,10 @@ export default function Home() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="border-primary/20">
+              <Card className="border-primary/20 overflow-hidden">
+                <div className="h-40 overflow-hidden">
+                  <img src={IMAGES.charity2} alt="Прозрачность фонда" className="w-full h-full object-cover" />
+                </div>
                 <CardHeader>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
                     <FileText className="h-6 w-6 text-primary" />
@@ -305,8 +335,8 @@ export default function Home() {
                 <Card key={child.name} className="overflow-hidden">
                   <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-6 md:p-8">
                     <div className="flex items-start gap-4">
-                      <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <Baby className="h-8 w-8 text-primary" />
+                      <div className="h-16 w-16 rounded-full overflow-hidden shrink-0">
+                        <img src={IMAGES.children} alt="Ребёнок" className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -503,7 +533,12 @@ export default function Home() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {POSTS.map((post, i) => (
-                <Card key={i} className="flex flex-col hover:shadow-md transition-shadow">
+                <Card key={i} className="flex flex-col hover:shadow-md transition-shadow overflow-hidden">
+                  {post.image && (
+                    <div className="h-40 overflow-hidden">
+                      <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                    </div>
+                  )}
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
                       <span>{post.date}</span>
