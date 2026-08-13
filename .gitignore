@@ -58,3 +58,5 @@ server.log
 /download/
 /worklog.md
 /.agent-ctx/
+/tool-results/
+/scripts/

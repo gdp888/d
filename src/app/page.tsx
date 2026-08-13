@@ -35,12 +35,16 @@ const GROUP = {
 }
 
 const IMAGES = {
-  cover: '/images/cover.jpg',
-  charity1: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/f82e91812815.jpg',
-  charity2: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/b8b4c8eeb980.jpg',
-  rehab: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/4abb320963fe.jpg',
-  children: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/5c2dbc79a225.jpg',
-  therapy: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/c0abd6998fb8.jpg',
+  cover: '/images/vk_cover.jpg',
+  avatar: '/images/vk_avatar.jpg',
+  // About section
+  charity1: '/images/post_children_1.jpg',
+  charity2: '/images/post_achievement_1.jpg',
+  rehab: '/images/post_rehab_1.jpg',
+  children: '/images/post_children_7.jpg',
+  therapy: '/images/post_charity_work.jpg',
+  // QR code for donations
+  qrCode: '/images/post_qr_code.jpg',
 }
 
 const BANK = {
@@ -72,7 +76,7 @@ const POSTS = [
     date: '13 авг 2026',
     reactions: 14,
     comments: 0,
-    image: 'https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2780336d22a2.png',
+    image: '/images/post_qr_code.jpg',
   },
   {
     title: 'Новый видеоклип фонда',
@@ -80,7 +84,7 @@ const POSTS = [
     date: '8 авг 2026',
     reactions: 4,
     comments: 3,
-    image: IMAGES.therapy,
+    image: '/images/post_charity_work.jpg',
   },
   {
     title: 'Праздник для наших подопечных',
@@ -88,7 +92,7 @@ const POSTS = [
     date: '29 июл 2026',
     reactions: 10,
     comments: 1,
-    image: IMAGES.children,
+    image: '/images/post_event_1.jpg',
   },
   {
     title: 'Наши дети — наша гордость',
@@ -96,7 +100,7 @@ const POSTS = [
     date: '27 июл 2026',
     reactions: 35,
     comments: 4,
-    image: IMAGES.rehab,
+    image: '/images/post_children_2.jpg',
   },
   {
     title: 'Новая реабилитация',
@@ -105,7 +109,7 @@ const POSTS = [
     reactions: 14,
     comments: 2,
     hasDonation: true,
-    image: IMAGES.charity1,
+    image: '/images/post_rehab_2.jpg',
   },
   {
     title: 'Отчёт о проделанной работе',
@@ -113,7 +117,7 @@ const POSTS = [
     date: '17 июл 2026',
     reactions: 26,
     comments: 1,
-    image: IMAGES.charity2,
+    image: '/images/post_achievement_1.jpg',
   },
   {
     title: 'Возвращайся с новыми силами!',
@@ -121,7 +125,19 @@ const POSTS = [
     date: '16 июл 2026',
     reactions: 19,
     comments: 3,
+    image: '/images/post_event_3.jpg',
   },
+]
+
+const GALLERY_IMAGES = [
+  { src: '/images/post_children_3.jpg', alt: 'Дети на занятии' },
+  { src: '/images/post_children_4.jpg', alt: 'Ребёнок на реабилитации' },
+  { src: '/images/post_children_5.jpg', alt: 'Наши подопечные' },
+  { src: '/images/post_children_6.jpg', alt: 'Помощь детям' },
+  { src: '/images/post_therapy_1.jpg', alt: 'Терапия' },
+  { src: '/images/post_event_2.jpg', alt: 'Мероприятие фонда' },
+  { src: '/images/post_event_4.jpg', alt: 'Событие' },
+  { src: '/images/post_event_5.jpg', alt: 'Праздник' },
 ]
 
 const NAV_ITEMS = [
@@ -129,6 +145,7 @@ const NAV_ITEMS = [
   { label: 'Дети', href: '#children' },
   { label: 'Помощь', href: '#help' },
   { label: 'Новости', href: '#news' },
+  { label: 'Фото', href: '#gallery' },
   { label: 'Контакты', href: '#contacts' },
 ]
 
@@ -149,7 +166,7 @@ export default function Home() {
       <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <a href="#" className="flex items-center gap-2 font-bold text-lg">
-            <Heart className="h-6 w-6 text-primary fill-primary" />
+            <img src={IMAGES.avatar} alt="" className="h-8 w-8 rounded-full object-cover" />
             <span className="hidden sm:inline">{GROUP.shortName}</span>
           </a>
           <div className="hidden md:flex items-center gap-1">
@@ -336,7 +353,7 @@ export default function Home() {
                   <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-6 md:p-8">
                     <div className="flex items-start gap-4">
                       <div className="h-16 w-16 rounded-full overflow-hidden shrink-0">
-                        <img src={IMAGES.children} alt="Ребёнок" className="w-full h-full object-cover" />
+                        <img src="/images/post_children_1.jpg" alt="Габдуллин Самир" className="w-full h-full object-cover" />
                       </div>
                       <div className="flex-1">
                         <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -573,6 +590,47 @@ export default function Home() {
               <Button variant="outline" asChild>
                 <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
                   Все новости во ВКонтакте
+                  <ExternalLink className="h-4 w-4 ml-2" />
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Gallery Section ─── */}
+        <section id="gallery" className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <Badge variant="secondary" className="mb-3">
+                <Star className="h-3 w-3 mr-1 fill-primary text-primary" />
+                Фотогалерея
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-bold">
+                Жизнь фонда в фотографиях
+              </h2>
+              <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+                Реальные фото из нашей группы ВКонтакте — будни, праздники, реабилитация и радость детей
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
+              {GALLERY_IMAGES.map((img, i) => (
+                <div
+                  key={i}
+                  className="relative aspect-square overflow-hidden rounded-lg group cursor-pointer"
+                >
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Button variant="outline" asChild>
+                <a href="https://vk.com/albums-223846998" target="_blank" rel="noopener noreferrer">
+                  Все альбомы во ВКонтакте
                   <ExternalLink className="h-4 w-4 ml-2" />
                 </a>
               </Button>
