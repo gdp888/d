@@ -280,8 +280,8 @@ export default function Home() {
             </div>
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               <Card className="border-primary/20 overflow-hidden">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img src={IMAGES.charity1} alt="Помощь детям" className="w-full h-full object-cover" loading="lazy" />
+                <div className="aspect-[16/10] bg-muted/50 flex items-center justify-center p-2">
+                  <img src={IMAGES.charity1} alt="Помощь детям" className="max-w-full max-h-full object-contain" loading="lazy" />
                 </div>
                 <CardHeader>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
@@ -298,8 +298,8 @@ export default function Home() {
                 </CardContent>
               </Card>
               <Card className="border-primary/20 overflow-hidden">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img src={IMAGES.rehab} alt="Реабилитация детей" className="w-full h-full object-cover" loading="lazy" />
+                <div className="aspect-[16/10] bg-muted/50 flex items-center justify-center p-2">
+                  <img src={IMAGES.rehab} alt="Реабилитация детей" className="max-w-full max-h-full object-contain" loading="lazy" />
                 </div>
                 <CardHeader>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
@@ -316,8 +316,8 @@ export default function Home() {
                 </CardContent>
               </Card>
               <Card className="border-primary/20 overflow-hidden">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img src={IMAGES.charity2} alt="Прозрачность фонда" className="w-full h-full object-cover" loading="lazy" />
+                <div className="aspect-[16/10] bg-muted/50 flex items-center justify-center p-2">
+                  <img src={IMAGES.charity2} alt="Прозрачность фонда" className="max-w-full max-h-full object-contain" loading="lazy" />
                 </div>
                 <CardHeader>
                   <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
@@ -559,11 +559,11 @@ export default function Home() {
                 <Link key={i} href={`/posts/${post.slug}`} className="group block">
                   <Card className="flex flex-col hover:shadow-lg transition-all duration-300 overflow-hidden border-transparent hover:border-primary/30 h-full">
                     {post.image && (
-                      <div className="aspect-[4/3] overflow-hidden bg-muted">
+                      <div className="aspect-[4/3] bg-muted/50 flex items-center justify-center p-2">
                         <img 
                           src={post.image} 
                           alt={post.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
                         />
                       </div>
@@ -634,12 +634,12 @@ export default function Home() {
               {GALLERY_IMAGES.map((img, i) => (
                 <div
                   key={i}
-                  className="relative aspect-[4/3] overflow-hidden rounded-lg group cursor-pointer"
+                  className="relative aspect-[4/3] bg-muted/50 rounded-lg overflow-hidden group cursor-pointer flex items-center justify-center p-1"
                 >
                   <img
                     src={img.src}
                     alt={img.alt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="max-w-full max-h-full object-contain transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
