@@ -1,0 +1,791 @@
+     1→     1→'use client'
+     2→     2→
+     3→     3→import { useState } from 'react'
+     4→     4→import { Button } from '@/components/ui/button'
+     5→     5→import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+     6→     6→import { Badge } from '@/components/ui/badge'
+     7→     7→import { Separator } from '@/components/ui/separator'
+     8→     8→import {
+     9→     9→  Heart,
+    10→    10→  Users,
+    11→    11→  HandHeart,
+    12→    12→  FileText,
+    13→    13→  Baby,
+    14→    14→  ExternalLink,
+    15→    15→  Star,
+    16→    16→  Activity,
+    17→    17→  MessageCircle,
+    18→    18→  Copy,
+    19→    19→  Check,
+    20→    20→  ChevronRight,
+    21→    21→  MapPin,
+    22→    22→  Globe,
+    23→    23→} from 'lucide-react'
+    24→    24→
+    25→    25→/* ─── Data ─── */
+    26→    26→
+    27→    27→const GROUP = {
+    28→    28→  name: 'БФ «Достижение-Дети»',
+    29→    29→  shortName: 'Достижение-Дети',
+    30→    30→  fullName: 'Благотворительный фонд «Достижение-Дети»',
+    31→    31→  vkUrl: 'https://vk.com/dostigenie_deti',
+    32→    32→  members: '2 134',
+    33→    33→  description:
+    34→    34→    'Мы верим, что каждый ребёнок заслуживает счастливого и здорового детства! Фонд «Достижение-Дети» стремится к прозрачности и открытости в работе, регулярно отчитываясь перед нашими благотворителями и партнёрами.',
+    35→    35→}
+    36→    36→
+    37→    37→const IMAGES = {
+    38→    38→  cover: '/images/vk_cover.jpg',
+    39→    39→  avatar: '/images/vk_avatar.jpg',
+    40→    40→  // About section
+    41→    41→  charity1: '/images/post_children_1.jpg',
+    42→    42→  charity2: '/images/post_achievement_1.jpg',
+    43→    43→  rehab: '/images/post_rehab_1.jpg',
+    44→    44→  children: '/images/post_children_7.jpg',
+    45→    45→  therapy: '/images/post_charity_work.jpg',
+    46→    46→  // QR code for donations
+    47→    47→  qrCode: '/images/post_qr_code.jpg',
+    48→    48→}
+    49→    49→
+    50→    50→const BANK = {
+    51→    51→  name: 'БФ «ДОСТИЖЕНИЕ-ДЕТИ»',
+    52→    52→  inn: '6382076793',
+    53→    53→  kpp: '638201001',
+    54→    54→  bik: '044525593',
+    55→    55→  account: '40703810811950000000',
+    56→    56→  bank: 'АО «АЛЬФА-БАНК»',
+    57→    57→  corrAccount: '30101810200000000593',
+    58→    58→  purpose: 'Благотворительность',
+    59→    59→}
+    60→    60→
+    61→    61→const CHILDREN = [
+    62→    62→  {
+    63→    63→    name: 'Габдуллин Самир',
+    64→    64→    age: '13 лет',
+    65→    65→    diagnosis: 'ДЦП и инвалидность',
+    66→    66→    story:
+    67→    67→      'Самир родился в срок, но из-за родовой травмы пострадал мозг и как итог — поражение нервной системы. В 2 года поставлен диагноз ДЦП и инвалидность. С самого рождения мы боремся за здоровье Самира. Ежедневные занятия и реабилитационные курсы всегда дают свои результаты. Чтобы начать ходить самостоятельно, Самиру очень нужны курсы реабилитации.',
+    68→    68→    need: 'Курсы реабилитации для самостоятельной ходьбы',
+    69→    69→  },
+    70→    70→]
+    71→    71→
+    72→    72→const POSTS = [
+    73→    73→  {
+    74→    74→    title: 'КАЖДЫЙ ИЗ ВАС МОЖЕТ СТАТЬ ЧАСТЬЮ НАШИХ ПРОЕКТОВ',
+    75→    75→    text: 'Вы можете выбрать любой удобный способ для добровольных пожертвований. ВМЕСТЕ МЫ СДЕЛАЕМ МИР ДОБРЕЕ! Отправить пожертвования можно по нашим реквизитам или через приложение банка по QR-коду.',
+    76→    76→    date: '13 авг 2026',
+    77→    77→    reactions: 14,
+    78→    78→    comments: 0,
+    79→    79→    image: '/images/post_qr_code.jpg',
+    80→    80→  },
+    81→    81→  {
+    82→    82→    title: 'Новый видеоклип фонда',
+    83→    83→    text: 'БФ «Достижение-Дети» продолжает рассказывать о своей работе. Смотрите наш новый клип и делитесь с друзьями — чем больше людей узнает, тем больше помощи мы сможем оказать.',
+    84→    84→    date: '8 авг 2026',
+    85→    85→    reactions: 4,
+    86→    86→    comments: 3,
+    87→    87→    image: '/images/post_charity_work.jpg',
+    88→    88→  },
+    89→    89→  {
+    90→    90→    title: 'Праздник для наших подопечных',
+    91→    91→    text: 'Очередной замечательный праздник для детей! Радость, улыбки и тепло — вот то, ради чего мы работаем каждый день. Спасибо всем, кто помогает делать эти моменты возможными.',
+    92→    92→    date: '29 июл 2026',
+    93→    93→    reactions: 10,
+    94→    94→    comments: 1,
+    95→    95→    image: '/images/post_event_1.jpg',
+    96→    96→  },
+    97→    97→  {
+    98→    98→    title: 'Наши дети — наша гордость',
+    99→    99→    text: 'Каждый день мы видим, как наши подопечные делают маленькие шаги к большим целям. И каждый такой шаг — это победа, которая стала возможной благодаря вашей поддержке.',
+   100→   100→    date: '27 июл 2026',
+   101→   101→    reactions: 35,
+   102→   102→    comments: 4,
+   103→   103→    image: '/images/post_children_2.jpg',
+   104→   104→  },
+   105→   105→  {
+   106→   106→    title: 'Новая реабилитация',
+   107→   107→    text: 'Очередной курс реабилитации завершён! Мы видим прогресс и благодарим каждого, кто делает эту работу возможной. Вместе мы — сила!',
+   108→   108→    date: '25 июл 2026',
+   109→   109→    reactions: 14,
+   110→   110→    comments: 2,
+   111→   111→    hasDonation: true,
+   112→   112→    image: '/images/post_rehab_2.jpg',
+   113→   113→  },
+   114→   114→  {
+   115→   115→    title: 'Отчёт о проделанной работе',
+   116→   116→    text: 'Мы стремимся к прозрачности и открытости. Ознакомьтесь с нашим очередным отчётом и убедитесь: каждый рубль идёт на помощь детям.',
+   117→   117→    date: '17 июл 2026',
+   118→   118→    reactions: 26,
+   119→   119→    comments: 1,
+   120→   120→    image: '/images/post_achievement_1.jpg',
+   121→   121→  },
+   122→   122→  {
+   123→   123→    title: 'Возвращайся с новыми силами!',
+   124→   124→    text: 'Дорогой наш друг, возвращайся обновлённым, с новыми силами и хорошим настроением — мы любим тебя очень! Ваша поддержка даёт надежду.',
+   125→   125→    date: '16 июл 2026',
+   126→   126→    reactions: 19,
+   127→   127→    comments: 3,
+   128→   128→    image: '/images/post_event_3.jpg',
+   129→   129→  },
+   130→   130→]
+   131→   131→
+   132→   132→const GALLERY_IMAGES = [
+   133→   133→  { src: '/images/post_children_3.jpg', alt: 'Дети на занятии' },
+   134→   134→  { src: '/images/post_children_4.jpg', alt: 'Ребёнок на реабилитации' },
+   135→   135→  { src: '/images/post_children_5.jpg', alt: 'Наши подопечные' },
+   136→   136→  { src: '/images/post_children_6.jpg', alt: 'Помощь детям' },
+   137→   137→  { src: '/images/post_therapy_1.jpg', alt: 'Терапия' },
+   138→   138→  { src: '/images/post_event_2.jpg', alt: 'Мероприятие фонда' },
+   139→   139→  { src: '/images/post_event_4.jpg', alt: 'Событие' },
+   140→   140→  { src: '/images/post_event_5.jpg', alt: 'Праздник' },
+   141→   141→]
+   142→   142→
+   143→   143→const NAV_ITEMS = [
+   144→   144→  { label: 'О фонде', href: '#about' },
+   145→   145→  { label: 'Дети', href: '#children' },
+   146→   146→  { label: 'Помощь', href: '#help' },
+   147→   147→  { label: 'Новости', href: '#news' },
+   148→   148→  { label: 'Фото', href: '#gallery' },
+   149→   149→  { label: 'Контакты', href: '#contacts' },
+   150→   150→]
+   151→   151→
+   152→   152→/* ─── Component ─── */
+   153→   153→
+   154→   154→export default function Home() {
+   155→   155→  const [copiedField, setCopiedField] = useState<string | null>(null)
+   156→   156→
+   157→   157→  const copyToClipboard = (text: string, field: string) => {
+   158→   158→    navigator.clipboard.writeText(text)
+   159→   159→    setCopiedField(field)
+   160→   160→    setTimeout(() => setCopiedField(null), 2000)
+   161→   161→  }
+   162→   162→
+   163→   163→  return (
+   164→   164→    <div className="min-h-screen flex flex-col">
+   165→   165→      {/* ─── Navigation ─── */}
+   166→   166→      <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+   167→   167→        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+   168→   168→          <a href="#" className="flex items-center gap-2 font-bold text-lg">
+   169→   169→            <img src={IMAGES.avatar} alt="" className="h-8 w-8 rounded-full object-cover" />
+   170→   170→            <span className="hidden sm:inline">{GROUP.shortName}</span>
+   171→   171→          </a>
+   172→   172→          <div className="hidden md:flex items-center gap-1">
+   173→   173→            {NAV_ITEMS.map((item) => (
+   174→   174→              <a
+   175→   175→                key={item.href}
+   176→   176→                href={item.href}
+   177→   177→                className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors rounded-md hover:bg-accent"
+   178→   178→              >
+   179→   179→                {item.label}
+   180→   180→              </a>
+   181→   181→            ))}
+   182→   182→          </div>
+   183→   183→          <div className="flex items-center gap-2">
+   184→   184→            <Button variant="outline" size="sm" asChild>
+   185→   185→              <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
+   186→   186→                <Globe className="h-4 w-4 mr-1" />
+   187→   187→                <span className="hidden sm:inline">ВК</span>
+   188→   188→              </a>
+   189→   189→            </Button>
+   190→   190→            <Button size="sm" asChild>
+   191→   191→              <a href="#help">
+   192→   192→                <HandHeart className="h-4 w-4 mr-1" />
+   193→   193→                Помочь
+   194→   194→              </a>
+   195→   195→            </Button>
+   196→   196→          </div>
+   197→   197→        </div>
+   198→   198→      </nav>
+   199→   199→
+   200→   200→      <main className="flex-1">
+   201→   201→        {/* ─── Hero Section ─── */}
+   202→   202→        <section className="relative overflow-hidden">
+   203→   203→          {/* Cover image background */}
+   204→   204→          <div className="absolute inset-0">
+   205→   205→            <img
+   206→   206→              src={IMAGES.cover}
+   207→   207→              alt="Обложка фонда Достижение-Дети"
+   208→   208→              className="w-full h-full object-cover"
+   209→   209→            />
+   210→   210→            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-background/40" />
+   211→   211→          </div>
+   212→   212→          <div className="container relative mx-auto px-4 py-20 md:py-32">
+   213→   213→            <div className="max-w-3xl">
+   214→   214→              <Badge variant="secondary" className="mb-4 text-sm px-3 py-1">
+   215→   215→                <Heart className="h-3 w-3 mr-1 fill-primary text-primary" />
+   216→   216→                Благотворительный фонд
+   217→   217→              </Badge>
+   218→   218→              <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+   219→   219→                Каждый ребёнок заслуживает{' '}
+   220→   220→                <span className="text-primary">счастливого детства</span>
+   221→   221→              </h1>
+   222→   222→              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">
+   223→   223→                {GROUP.description}
+   224→   224→              </p>
+   225→   225→              <div className="flex flex-wrap gap-4">
+   226→   226→                <Button size="lg" asChild>
+   227→   227→                  <a href="#help">
+   228→   228→                    <HandHeart className="h-5 w-5 mr-2" />
+   229→   229→                    Помочь детям
+   230→   230→                  </a>
+   231→   231→                </Button>
+   232→   232→                <Button size="lg" variant="outline" asChild>
+   233→   233→                  <a href="#about">
+   234→   234→                    Узнать больше
+   235→   235→                    <ChevronRight className="h-5 w-5 ml-1" />
+   236→   236→                  </a>
+   237→   237→                </Button>
+   238→   238→              </div>
+   239→   239→              <div className="flex flex-wrap items-center gap-6 mt-10 text-sm text-muted-foreground">
+   240→   240→                <div className="flex items-center gap-2">
+   241→   241→                  <Users className="h-4 w-4 text-primary" />
+   242→   242→                  <span>
+   243→   243→                    <strong className="text-foreground">{GROUP.members}</strong> подписчиков
+   244→   244→                  </span>
+   245→   245→                </div>
+   246→   246→                <div className="flex items-center gap-2">
+   247→   247→                  <Baby className="h-4 w-4 text-primary" />
+   248→   248→                  <span>Помощь детям с ДЦП</span>
+   249→   249→                </div>
+   250→   250→                <div className="flex items-center gap-2">
+   251→   251→                  <FileText className="h-4 w-4 text-primary" />
+   252→   252→                  <span>596 публикаций</span>
+   253→   253→                </div>
+   254→   254→              </div>
+   255→   255→            </div>
+   256→   256→          </div>
+   257→   257→        </section>
+   258→   258→
+   259→   259→        {/* ─── About Section ─── */}
+   260→   260→        <section id="about" className="py-16 md:py-24">
+   261→   261→          <div className="container mx-auto px-4">
+   262→   262→            <div className="text-center mb-12">
+   263→   263→              <Badge variant="secondary" className="mb-3">
+   264→   264→                <Heart className="h-3 w-3 mr-1 fill-primary text-primary" />
+   265→   265→                О фонде
+   266→   266→              </Badge>
+   267→   267→              <h2 className="text-3xl md:text-4xl font-bold">
+   268→   268→                О благотворительном фонде
+   269→   269→              </h2>
+   270→   270→              <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+   271→   271→                Фонд «Достижение-Дети» — это люди, которые верят в силу добра и
+   272→   272→                объединяют усилия ради здоровья и будущего детей
+   273→   273→              </p>
+   274→   274→            </div>
+   275→   275→            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+   276→   276→              <Card className="border-primary/20 overflow-hidden">
+   277→   277→                <div className="h-40 overflow-hidden">
+   278→   278→                  <img src={IMAGES.charity1} alt="Помощь детям" className="w-full h-full object-cover" />
+   279→   279→                </div>
+   280→   280→                <CardHeader>
+   281→   281→                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
+   282→   282→                    <Heart className="h-6 w-6 text-primary" />
+   283→   283→                  </div>
+   284→   284→                  <CardTitle>Наша миссия</CardTitle>
+   285→   285→                </CardHeader>
+   286→   286→                <CardContent>
+   287→   287→                  <p className="text-muted-foreground">
+   288→   288→                    Каждый ребёнок заслуживает счастливого и здорового детства. Мы
+   289→   289→                    делаем всё, чтобы дети с ограниченными возможностями здоровья
+   290→   290→                    получили шанс на полноценную жизнь, реабилитацию и развитие.
+   291→   291→                  </p>
+   292→   292→                </CardContent>
+   293→   293→              </Card>
+   294→   294→              <Card className="border-primary/20 overflow-hidden">
+   295→   295→                <div className="h-40 overflow-hidden">
+   296→   296→                  <img src={IMAGES.rehab} alt="Реабилитация детей" className="w-full h-full object-cover" />
+   297→   297→                </div>
+   298→   298→                <CardHeader>
+   299→   299→                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
+   300→   300→                    <Activity className="h-6 w-6 text-primary" />
+   301→   301→                  </div>
+   302→   302→                  <CardTitle>Реабилитация</CardTitle>
+   303→   303→                </CardHeader>
+   304→   304→                <CardContent>
+   305→   305→                  <p className="text-muted-foreground">
+   306→   306→                    Мы организуем и оплачиваем курсы реабилитации для детей с ДЦП и
+   307→   307→                    другими заболеваниями. Ежедневные занятия и профессиональный
+   308→   308→                    подход дают результаты, которые меняют жизни к лучшему.
+   309→   309→                  </p>
+   310→   310→                </CardContent>
+   311→   311→              </Card>
+   312→   312→              <Card className="border-primary/20 overflow-hidden">
+   313→   313→                <div className="h-40 overflow-hidden">
+   314→   314→                  <img src={IMAGES.charity2} alt="Прозрачность фонда" className="w-full h-full object-cover" />
+   315→   315→                </div>
+   316→   316→                <CardHeader>
+   317→   317→                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-2">
+   318→   318→                    <FileText className="h-6 w-6 text-primary" />
+   319→   319→                  </div>
+   320→   320→                  <CardTitle>Прозрачность</CardTitle>
+   321→   321→                </CardHeader>
+   322→   322→                <CardContent>
+   323→   323→                  <p className="text-muted-foreground">
+   324→   324→                    Фонд стремится к прозрачности и открытости. Мы регулярно
+   325→   325→                    отчитываемся перед благотворителями и партнёрами, публикуем
+   326→   326→                    отчёты и подтверждения целевого использования средств.
+   327→   327→                  </p>
+   328→   328→                </CardContent>
+   329→   329→              </Card>
+   330→   330→            </div>
+   331→   331→          </div>
+   332→   332→        </section>
+   333→   333→
+   334→   334→        {/* ─── Children Section ─── */}
+   335→   335→        <section id="children" className="py-16 md:py-24 bg-muted/50">
+   336→   336→          <div className="container mx-auto px-4">
+   337→   337→            <div className="text-center mb-12">
+   338→   338→              <Badge variant="secondary" className="mb-3">
+   339→   339→                <Baby className="h-3 w-3 mr-1 fill-primary text-primary" />
+   340→   340→                Наши подопечные
+   341→   341→              </Badge>
+   342→   342→              <h2 className="text-3xl md:text-4xl font-bold">
+   343→   343→                Дети, которым нужна ваша помощь
+   344→   344→              </h2>
+   345→   345→              <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+   346→   346→                Каждый из наших подопечных — это уникальная история борьбы и
+   347→   347→                надежды. Ваша поддержка даёт им шанс на лучшее будущее
+   348→   348→              </p>
+   349→   349→            </div>
+   350→   350→            <div className="max-w-3xl mx-auto space-y-6">
+   351→   351→              {CHILDREN.map((child) => (
+   352→   352→                <Card key={child.name} className="overflow-hidden">
+   353→   353→                  <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-6 md:p-8">
+   354→   354→                    <div className="flex items-start gap-4">
+   355→   355→                      <div className="h-16 w-16 rounded-full overflow-hidden shrink-0">
+   356→   356→                        <img src="/images/post_children_1.jpg" alt="Габдуллин Самир" className="w-full h-full object-cover" />
+   357→   357→                      </div>
+   358→   358→                      <div className="flex-1">
+   359→   359→                        <div className="flex flex-wrap items-center gap-2 mb-2">
+   360→   360→                          <h3 className="text-xl font-bold">{child.name}</h3>
+   361→   361→                          <Badge variant="outline" className="text-xs">
+   362→   362→                            <Star className="h-3 w-3 mr-1" />
+   363→   363→                            {child.age}
+   364→   364→                          </Badge>
+   365→   365→                        </div>
+   366→   366→                        <Badge variant="secondary" className="mb-4 text-xs">
+   367→   367→                          <Activity className="h-3 w-3 mr-1" />
+   368→   368→                          {child.diagnosis}
+   369→   369→                        </Badge>
+   370→   370→                        <p className="text-muted-foreground leading-relaxed">
+   371→   371→                          {child.story}
+   372→   372→                        </p>
+   373→   373→                        {child.need && (
+   374→   374→                          <div className="mt-4 p-3 bg-primary/5 rounded-lg border border-primary/20">
+   375→   375→                            <p className="text-sm font-medium text-primary">
+   376→   376→                              <HandHeart className="h-4 w-4 inline mr-1" />
+   377→   377→                              Срочная потребность: {child.need}
+   378→   378→                            </p>
+   379→   379→                          </div>
+   380→   380→                        )}
+   381→   381→                      </div>
+   382→   382→                    </div>
+   383→   383→                  </div>
+   384→   384→                </Card>
+   385→   385→              ))}
+   386→   386→            </div>
+   387→   387→          </div>
+   388→   388→        </section>
+   389→   389→
+   390→   390→        {/* ─── Help Section ─── */}
+   391→   391→        <section id="help" className="py-16 md:py-24">
+   392→   392→          <div className="container mx-auto px-4">
+   393→   393→            <div className="text-center mb-12">
+   394→   394→              <Badge variant="secondary" className="mb-3">
+   395→   395→                <HandHeart className="h-3 w-3 mr-1 fill-primary text-primary" />
+   396→   396→                Как помочь
+   397→   397→              </Badge>
+   398→   398→              <h2 className="text-3xl md:text-4xl font-bold">
+   399→   399→                Каждый может сделать доброе дело
+   400→   400→              </h2>
+   401→   401→              <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+   402→   402→                Выберите удобный способ поддержки — даже небольшая сумма
+   403→   403→                приближает ребёнка к здоровью
+   404→   404→              </p>
+   405→   405→            </div>
+   406→   406→
+   407→   407→            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+   408→   408→              {/* Bank Details */}
+   409→   409→              <Card className="md:col-span-2">
+   410→   410→                <CardHeader>
+   411→   411→                  <CardTitle className="flex items-center gap-2">
+   412→   412→                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+   413→   413→                      <FileText className="h-5 w-5 text-primary" />
+   414→   414→                    </div>
+   415→   415→                    Реквизиты для пожертвований
+   416→   416→                  </CardTitle>
+   417→   417→                </CardHeader>
+   418→   418→                <CardContent>
+   419→   419→                  <div className="grid sm:grid-cols-2 gap-4">
+   420→   420→                    <div className="space-y-3">
+   421→   421→                      <DetailRow
+   422→   422→                        label="Получатель"
+   423→   423→                        value={BANK.name}
+   424→   424→                        field="name"
+   425→   425→                        copiedField={copiedField}
+   426→   426→                        onCopy={copyToClipboard}
+   427→   427→                      />
+   428→   428→                      <DetailRow
+   429→   429→                        label="ИНН"
+   430→   430→                        value={BANK.inn}
+   431→   431→                        field="inn"
+   432→   432→                        copiedField={copiedField}
+   433→   433→                        onCopy={copyToClipboard}
+   434→   434→                      />
+   435→   435→                      <DetailRow
+   436→   436→                        label="КПП"
+   437→   437→                        value={BANK.kpp}
+   438→   438→                        field="kpp"
+   439→   439→                        copiedField={copiedField}
+   440→   440→                        onCopy={copyToClipboard}
+   441→   441→                      />
+   442→   442→                      <DetailRow
+   443→   443→                        label="БИК"
+   444→   444→                        value={BANK.bik}
+   445→   445→                        field="bik"
+   446→   446→                        copiedField={copiedField}
+   447→   447→                        onCopy={copyToClipboard}
+   448→   448→                      />
+   449→   449→                    </div>
+   450→   450→                    <div className="space-y-3">
+   451→   451→                      <DetailRow
+   452→   452→                        label="Р/с"
+   453→   453→                        value={BANK.account}
+   454→   454→                        field="account"
+   455→   455→                        copiedField={copiedField}
+   456→   456→                        onCopy={copyToClipboard}
+   457→   457→                      />
+   458→   458→                      <DetailRow
+   459→   459→                        label="Банк"
+   460→   460→                        value={BANK.bank}
+   461→   461→                        field="bank"
+   462→   462→                        copiedField={copiedField}
+   463→   463→                        onCopy={copyToClipboard}
+   464→   464→                      />
+   465→   465→                      <DetailRow
+   466→   466→                        label="Кор. счёт"
+   467→   467→                        value={BANK.corrAccount}
+   468→   468→                        field="corr"
+   469→   469→                        copiedField={copiedField}
+   470→   470→                        onCopy={copyToClipboard}
+   471→   471→                      />
+   472→   472→                      <DetailRow
+   473→   473→                        label="Назначение"
+   474→   474→                        value={BANK.purpose}
+   475→   475→                        field="purpose"
+   476→   476→                        copiedField={copiedField}
+   477→   477→                        onCopy={copyToClipboard}
+   478→   478→                      />
+   479→   479→                    </div>
+   480→   480→                  </div>
+   481→   481→                </CardContent>
+   482→   482→              </Card>
+   483→   483→
+   484→   484→              {/* Ways to help */}
+   485→   485→              <Card className="flex flex-col">
+   486→   486→                <CardHeader>
+   487→   487→                  <CardTitle className="flex items-center gap-2">
+   488→   488→                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+   489→   489→                      <Heart className="h-5 w-5 text-primary" />
+   490→   490→                    </div>
+   491→   491→                    Разовая помощь
+   492→   492→                  </CardTitle>
+   493→   493→                </CardHeader>
+   494→   494→                <CardContent className="flex-1">
+   495→   495→                  <p className="text-muted-foreground mb-4">
+   496→   496→                    Переведите любую удобную сумму по реквизитам фонда.
+   497→   497→                    Назначение платежа — «Благотворительность». Каждый рубль
+   498→   498→                    идёт на реабилитацию детей.
+   499→   499→                  </p>
+   500→   500→                  <Button className="w-full" asChild>
+   501→   501→                    <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
+   502→   502→                      <ExternalLink className="h-4 w-4 mr-2" />
+   503→   503→                      Поддержать через VK Donut
+   504→   504→                    </a>
+   505→   505→                  </Button>
+   506→   506→                </CardContent>
+   507→   507→              </Card>
+   508→   508→
+   509→   509→              <Card className="flex flex-col">
+   510→   510→                <CardHeader>
+   511→   511→                  <CardTitle className="flex items-center gap-2">
+   512→   512→                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+   513→   513→                      <Users className="h-5 w-5 text-primary" />
+   514→   514→                    </div>
+   515→   515→                    Регулярная помощь
+   516→   516→                  </CardTitle>
+   517→   517→                </CardHeader>
+   518→   518→                <CardContent className="flex-1">
+   519→   519→                  <p className="text-muted-foreground mb-4">
+   520→   520→                    Присоединяйтесь к регулярной помощи детям! Напишите сообщение
+   521→   521→                    в нашу группу ВК или свяжитесь с волонтёрами — мы подберём
+   522→   522→                    удобный формат сотрудничества.
+   523→   523→                  </p>
+   524→   524→                  <Button variant="outline" className="w-full" asChild>
+   525→   525→                    <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
+   526→   526→                      <MessageCircle className="h-4 w-4 mr-2" />
+   527→   527→                      Написать в группу ВК
+   528→   528→                    </a>
+   529→   529→                  </Button>
+   530→   530→                </CardContent>
+   531→   531→              </Card>
+   532→   532→            </div>
+   533→   533→          </div>
+   534→   534→        </section>
+   535→   535→
+   536→   536→        {/* ─── News Section ─── */}
+   537→   537→        <section id="news" className="py-16 md:py-24 bg-muted/50">
+   538→   538→          <div className="container mx-auto px-4">
+   539→   539→            <div className="text-center mb-12">
+   540→   540→              <Badge variant="secondary" className="mb-3">
+   541→   541→                <FileText className="h-3 w-3 mr-1 fill-primary text-primary" />
+   542→   542→                Новости
+   543→   543→              </Badge>
+   544→   544→              <h2 className="text-3xl md:text-4xl font-bold">
+   545→   545→                Последние события фонда
+   546→   546→              </h2>
+   547→   547→              <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+   548→   548→                Будьте в курсе нашей работы и событий из жизни подопечных
+   549→   549→              </p>
+   550→   550→            </div>
+   551→   551→            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+   552→   552→              {POSTS.map((post, i) => (
+   553→   553→                <Card key={i} className="flex flex-col hover:shadow-md transition-shadow overflow-hidden">
+   554→   554→                  {post.image && (
+   555→   555→                    <div className="h-40 overflow-hidden">
+   556→   556→                      <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+   557→   557→                    </div>
+   558→   558→                  )}
+   559→   559→                  <CardHeader className="pb-3">
+   560→   560→                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+   561→   561→                      <span>{post.date}</span>
+   562→   562→                      {post.hasDonation && (
+   563→   563→                        <Badge variant="secondary" className="text-xs">
+   564→   564→                          <Heart className="h-3 w-3 mr-1 fill-primary text-primary" />
+   565→   565→                          Сбор средств
+   566→   566→                        </Badge>
+   567→   567→                      )}
+   568→   568→                    </div>
+   569→   569→                    <CardTitle className="text-base leading-snug">
+   570→   570→                      {post.title}
+   571→   571→                    </CardTitle>
+   572→   572→                  </CardHeader>
+   573→   573→                  <CardContent className="flex-1">
+   574→   574→                    <p className="text-sm text-muted-foreground line-clamp-4">
+   575→   575→                      {post.text}
+   576→   576→                    </p>
+   577→   577→                  </CardContent>
+   578→   578→                  <div className="px-6 pb-4 flex items-center gap-4 text-xs text-muted-foreground">
+   579→   579→                    <span className="flex items-center gap-1">
+   580→   580→                      <Heart className="h-3 w-3" /> {post.reactions}
+   581→   581→                    </span>
+   582→   582→                    <span className="flex items-center gap-1">
+   583→   583→                      <MessageCircle className="h-3 w-3" /> {post.comments}
+   584→   584→                    </span>
+   585→   585→                  </div>
+   586→   586→                </Card>
+   587→   587→              ))}
+   588→   588→            </div>
+   589→   589→            <div className="text-center mt-8">
+   590→   590→              <Button variant="outline" asChild>
+   591→   591→                <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
+   592→   592→                  Все новости во ВКонтакте
+   593→   593→                  <ExternalLink className="h-4 w-4 ml-2" />
+   594→   594→                </a>
+   595→   595→              </Button>
+   596→   596→            </div>
+   597→   597→          </div>
+   598→   598→        </section>
+   599→   599→
+   600→   600→        {/* ─── Gallery Section ─── */}
+   601→   601→        <section id="gallery" className="py-16 md:py-24">
+   602→   602→          <div className="container mx-auto px-4">
+   603→   603→            <div className="text-center mb-12">
+   604→   604→              <Badge variant="secondary" className="mb-3">
+   605→   605→                <Star className="h-3 w-3 mr-1 fill-primary text-primary" />
+   606→   606→                Фотогалерея
+   607→   607→              </Badge>
+   608→   608→              <h2 className="text-3xl md:text-4xl font-bold">
+   609→   609→                Жизнь фонда в фотографиях
+   610→   610→              </h2>
+   611→   611→              <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+   612→   612→                Реальные фото из нашей группы ВКонтакте — будни, праздники, реабилитация и радость детей
+   613→   613→              </p>
+   614→   614→            </div>
+   615→   615→            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
+   616→   616→              {GALLERY_IMAGES.map((img, i) => (
+   617→   617→                <div
+   618→   618→                  key={i}
+   619→   619→                  className="relative aspect-square overflow-hidden rounded-lg group cursor-pointer"
+   620→   620→                >
+   621→   621→                  <img
+   622→   622→                    src={img.src}
+   623→   623→                    alt={img.alt}
+   624→   624→                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+   625→   625→                  />
+   626→   626→                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+   627→   627→                </div>
+   628→   628→              ))}
+   629→   629→            </div>
+   630→   630→            <div className="text-center mt-8">
+   631→   631→              <Button variant="outline" asChild>
+   632→   632→                <a href="https://vk.com/albums-223846998" target="_blank" rel="noopener noreferrer">
+   633→   633→                  Все альбомы во ВКонтакте
+   634→   634→                  <ExternalLink className="h-4 w-4 ml-2" />
+   635→   635→                </a>
+   636→   636→              </Button>
+   637→   637→            </div>
+   638→   638→          </div>
+   639→   639→        </section>
+   640→   640→
+   641→   641→        {/* ─── CTA Section ─── */}
+   642→   642→        <section className="py-16 md:py-24">
+   643→   643→          <div className="container mx-auto px-4">
+   644→   644→            <div className="max-w-3xl mx-auto text-center bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 md:p-12 text-primary-foreground">
+   645→   645→              <Heart className="h-12 w-12 mx-auto mb-4 fill-current" />
+   646→   646→              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+   647→   647→                Вместе мы делаем мир добрее!
+   648→   648→              </h2>
+   649→   649→              <p className="text-primary-foreground/80 mb-8 max-w-lg mx-auto">
+   650→   650→                Присоединяйтесь к нам, чтобы вместе сделать мир лучше для наших
+   651→   651→                детей. Каждый вклад — это шаг к здоровью и счастливому будущему.
+   652→   652→              </p>
+   653→   653→              <div className="flex flex-wrap justify-center gap-4">
+   654→   654→                <Button size="lg" variant="secondary" asChild>
+   655→   655→                  <a href="#help">
+   656→   656→                    <HandHeart className="h-5 w-5 mr-2" />
+   657→   657→                    Помочь сейчас
+   658→   658→                  </a>
+   659→   659→                </Button>
+   660→   660→                <Button
+   661→   661→                  size="lg"
+   662→   662→                  variant="outline"
+   663→   663→                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+   664→   664→                  asChild
+   665→   665→                >
+   666→   666→                  <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
+   667→   667→                    <Globe className="h-5 w-5 mr-2" />
+   668→   668→                    Группа ВК
+   669→   669→                  </a>
+   670→   670→                </Button>
+   671→   671→              </div>
+   672→   672→            </div>
+   673→   673→          </div>
+   674→   674→        </section>
+   675→   675→      </main>
+   676→   676→
+   677→   677→      {/* ─── Footer ─── */}
+   678→   678→      <footer id="contacts" className="border-t bg-muted/30 mt-auto">
+   679→   679→        <div className="container mx-auto px-4 py-10">
+   680→   680→          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+   681→   681→            <div>
+   682→   682→              <div className="flex items-center gap-2 font-bold text-lg mb-3">
+   683→   683→                <Heart className="h-5 w-5 text-primary fill-primary" />
+   684→   684→                {GROUP.shortName}
+   685→   685→              </div>
+   686→   686→              <p className="text-sm text-muted-foreground">
+   687→   687→                Благотворительный фонд помощи детям с ограниченными
+   688→   688→                возможностями здоровья
+   689→   689→              </p>
+   690→   690→            </div>
+   691→   691→            <div>
+   692→   692→              <h4 className="font-semibold mb-3">Навигация</h4>
+   693→   693→              <div className="space-y-2 text-sm text-muted-foreground">
+   694→   694→                {NAV_ITEMS.map((item) => (
+   695→   695→                  <a
+   696→   696→                    key={item.href}
+   697→   697→                    href={item.href}
+   698→   698→                    className="block hover:text-primary transition-colors"
+   699→   699→                  >
+   700→   700→                    {item.label}
+   701→   701→                  </a>
+   702→   702→                ))}
+   703→   703→              </div>
+   704→   704→            </div>
+   705→   705→            <div>
+   706→   706→              <h4 className="font-semibold mb-3">Контакты</h4>
+   707→   707→              <div className="space-y-2 text-sm text-muted-foreground">
+   708→   708→                <a
+   709→   709→                  href={GROUP.vkUrl}
+   710→   710→                  target="_blank"
+   711→   711→                  rel="noopener noreferrer"
+   712→   712→                  className="flex items-center gap-2 hover:text-primary transition-colors"
+   713→   713→                >
+   714→   714→                  <Globe className="h-4 w-4" />
+   715→   715→                  ВКонтакте
+   716→   716→                </a>
+   717→   717→                <span className="flex items-center gap-2">
+   718→   718→                  <MapPin className="h-4 w-4" />
+   719→   719→                  г. Самара
+   720→   720→                </span>
+   721→   721→              </div>
+   722→   722→            </div>
+   723→   723→            <div>
+   724→   724→              <h4 className="font-semibold mb-3">Реквизиты</h4>
+   725→   725→              <div className="space-y-1 text-xs text-muted-foreground">
+   726→   726→                <p>ИНН: {BANK.inn}</p>
+   727→   727→                <p>КПП: {BANK.kpp}</p>
+   728→   728→                <p>БИК: {BANK.bik}</p>
+   729→   729→                <p>Р/с: {BANK.account}</p>
+   730→   730→                <p>Банк: {BANK.bank}</p>
+   731→   731→              </div>
+   732→   732→            </div>
+   733→   733→          </div>
+   734→   734→          <Separator className="my-6" />
+   735→   735→          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+   736→   736→            <p>&copy; {new Date().getFullYear()} {GROUP.fullName}</p>
+   737→   737→            <p>
+   738→   738→              Данные из{' '}
+   739→   739→              <a
+   740→   740→                href={GROUP.vkUrl}
+   741→   741→                target="_blank"
+   742→   742→                rel="noopener noreferrer"
+   743→   743→                className="text-primary hover:underline"
+   744→   744→              >
+   745→   745→                группы ВКонтакте
+   746→   746→              </a>
+   747→   747→            </p>
+   748→   748→          </div>
+   749→   749→        </div>
+   750→   750→      </footer>
+   751→   751→    </div>
+   752→   752→  )
+   753→   753→}
+   754→   754→
+   755→   755→/* ─── Helpers ─── */
+   756→   756→
+   757→   757→function DetailRow({
+   758→   758→  label,
+   759→   759→  value,
+   760→   760→  field,
+   761→   761→  copiedField,
+   762→   762→  onCopy,
+   763→   763→}: {
+   764→   764→  label: string
+   765→   765→  value: string
+   766→   766→  field: string
+   767→   767→  copiedField: string | null
+   768→   768→  onCopy: (text: string, field: string) => void
+   769→   769→}) {
+   770→   770→  return (
+   771→   771→    <div className="flex items-center justify-between gap-2 p-2 rounded-md bg-muted/50">
+   772→   772→      <div>
+   773→   773→        <p className="text-xs text-muted-foreground">{label}</p>
+   774→   774→        <p className="text-sm font-mono">{value}</p>
+   775→   775→      </div>
+   776→   776→      <Button
+   777→   777→        variant="ghost"
+   778→   778→        size="icon"
+   779→   779→        className="h-8 w-8 shrink-0"
+   780→   780→        onClick={() => onCopy(value, field)}
+   781→   781→      >
+   782→   782→        {copiedField === field ? (
+   783→   783→          <Check className="h-3 w-3 text-green-600" />
+   784→   784→        ) : (
+   785→   785→          <Copy className="h-3 w-3" />
+   786→   786→        )}
+   787→   787→      </Button>
+   788→   788→    </div>
+   789→   789→  )
+   790→   790→}
+   791→   791→
