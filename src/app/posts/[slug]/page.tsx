@@ -195,13 +195,13 @@ export default function PostPage() {
       <main className="flex-1">
         {/* ─── Post Header Image ─── */}
         {post.image && (
-          <div className="relative h-[300px] md:h-[400px] overflow-hidden">
+          <div className="relative w-full max-h-[50vh] md:max-h-[60vh] overflow-hidden">
             <img
               src={post.image}
               alt={post.title}
-              className="w-full h-full object-cover"
+              className="w-full h-auto object-contain max-w-full"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
           </div>
         )}
 
