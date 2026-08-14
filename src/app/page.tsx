@@ -30,9 +30,15 @@ const GROUP = {
   shortName: 'Достижение-Дети',
   fullName: 'Благотворительный фонд «Достижение-Дети»',
   vkUrl: 'https://vk.com/dostigenie_deti',
+  fbUrl: 'https://www.facebook.com/groups/904178837362628',
   members: '2 134',
   description:
     'Мы верим, что каждый ребёнок заслуживает счастливого и здорового детства! Фонд «Достижение-Дети» стремится к прозрачности и открытости в работе, регулярно отчитываясь перед нашими благотворителями и партнёрами.',
+}
+
+const FB_PARTNER = {
+  name: 'Партнёры на Facebook',
+  description: 'Группа наших партнёров и сторонников',
 }
 
 const IMAGES = {
@@ -200,6 +206,202 @@ const POSTS = [
     comments: 8,
     image: '/images/post_children_5.jpg',
   },
+  {
+    slug: 'gabdullin-samir-pomoshch-nuzhna',
+    title: 'Габдуллин Самир — помощь нужна! 🙏',
+    text: 'Самиру 13 лет, диагноз ДЦП. Нужны курсы реабилитации чтобы начать ходить самостоятельно. Каждый курс стоит 45 000 ₽.',
+    date: '10 июл 2026',
+    reactions: 28,
+    comments: 5,
+    hasDonation: true,
+    image: '/images/post_children_6.jpg',
+  },
+  {
+    slug: 'den-molodezhi-novokuybyshevsk',
+    title: 'День молодёжи в Новокуйбышевске 🎉🎬',
+    text: 'Море эмоций! Видеоотчёт о работе фонда, интерактивная площадка, общение с молодёжью.',
+    date: '25 июл 2026',
+    reactions: 12,
+    comments: 2,
+    image: '/images/post_event_2.jpg',
+  },
+  {
+    slug: 'vanya-reabilitatsiya-intellekta-rechi',
+    title: 'Наш Ваня нуждается в реабилитации 🤍',
+    text: 'Ване 7 лет, нужна реабилитация в Академии развития интеллекта речи. Стоимость курса: 38 000 ₽.',
+    date: '23 июл 2026',
+    reactions: 18,
+    comments: 3,
+    hasDonation: true,
+    image: '/images/post_therapy_1.jpg',
+  },
+  {
+    slug: 'den-zashchity-detej-fotoreportazh',
+    title: 'День защиты детей — счастливые фото! 📸✨',
+    text: '35 детей, 20 волонтёров, 200+ прохожих, 1000+ улыбок! Праздник любви для наших особенных деток.',
+    date: '17 июн 2026',
+    reactions: 33,
+    comments: 4,
+    image: '/images/post_children_7.jpg',
+  },
+  {
+    slug: 'saveliy-sbor-zakryt-blagodarnost',
+    title: 'СБОР ЗАКРЫТ! Савелий пройдёт реабилитацию! 🤍✅',
+    text: 'Собрали 52 000 ₽ (сверх плана!) от 87 жертвователей. Курс оплачен!',
+    date: '16 июл 2026',
+    reactions: 41,
+    comments: 8,
+    image: '/images/post_rehab_1.jpg',
+  },
+  {
+    slug: 'volontery-fonda-dostizhanie-deti',
+    title: 'Наша команда волонтеров ❤️‍🔥',
+    text: '25 активных волонтёров, 150+ часов, 8 мероприятий, 40 семей получили помощь. Присоединяйтесь!',
+    date: '12 июл 2026',
+    reactions: 22,
+    comments: 4,
+    image: '/images/post_charity_work.jpg',
+  },
+  {
+    slug: 'blagodarnost-kazhdomu-neravnodushnomu',
+    title: 'Благодарны каждому неравнодушному! 🙏💙',
+    text: '12 детей прошли курсы, 4 мероприятия, 28 000 ₽ собрано, 150+ семей поддержано.',
+    date: '8 июл 2026',
+    reactions: 15,
+    comments: 2,
+    image: '/images/post_achievement_1.jpg',
+  },
+  {
+    slug: 'novyj-podopechnyj-artem-progress',
+    title: 'Новый подопечный — Артём показывает прогресс! 🌟',
+    text: 'Артём стоит у опоры 30+ секунд! Ранее мог только сидеть. Прогресс превышает ожидания!',
+    date: '5 июл 2026',
+    reactions: 27,
+    comments: 6,
+    hasDonation: true,
+    image: '/images/post_rehab_2.jpg',
+  },
+  {
+    slug: 'kurs-reabilitsatsii-nachalsya-iyul',
+    title: 'Июльский курс реабилитации стартовал! 🏥🚀',
+    text: '10 детей занимаются по программе: ЛФК, гидротерапия, логопед, арт-терапия, нейрокоррекция.',
+    date: '1 июл 2026',
+    reactions: 19,
+    comments: 3,
+    image: '/images/post_therapy_1.jpg',
+  },
+  {
+    slug: 'itogovyy-otchet-iyun-2026',
+    title: 'Итоговый отчёт: июнь 2026 📊📈',
+    text: 'Поступления: 187 400 ₽. 18 детей прошли занятия. Средний прогресс: +19%. 28 активных волонтёра.',
+    date: '28 июн 2026',
+    reactions: 24,
+    comments: 5,
+    image: '/images/post_achievement_1.jpg',
+  },
+  // ─── Посты от группы-партнёра (Facebook) ───
+  {
+    slug: 'fb-sovmestnyj-proekt-pomoshch-semjam',
+    title: 'Совместный проект: помощь семьям 👨‍👩‍👧‍👦',
+    text: 'В рамках сотрудничества запускаем программу поддержки семей с детьми-инвалидами. Консультации юристов, психологов, помощь в оформлении документов. Всё бесплатно!',
+    date: '12 авг 2026',
+    reactions: 23,
+    comments: 5,
+    source: 'facebook',
+    image: '/images/post_children_1.jpg',
+  },
+  {
+    slug: 'fb-sbor-na-kolesnuyu-kreslo-dlya-mishi',
+    title: 'Сбор на кресло для Миши! ♿🙏',
+    text: 'Мише 9 лет, ему необходимо специализированное wheelchair. Стоимость: 85 000 ₽. Уже собрано 42 000 ₽. Помогите добрым делом!',
+    date: '10 авг 2026',
+    reactions: 38,
+    comments: 12,
+    hasDonation: true,
+    source: 'facebook',
+    image: '/images/post_rehab_1.jpg',
+  },
+  {
+    slug: 'fb-blagodarnost-ot-semi-kuznecovyh',
+    title: 'Благодарность от семьи Кузнецовых! 🙏❤️',
+    text: '"Спасибо фонду и всем жертвователям! Наша Катя прошла курс реабилитации и теперь сама встаёт с кровати!" — мама Кати.',
+    date: '8 авг 2026',
+    reactions: 56,
+    comments: 18,
+    source: 'facebook',
+    image: '/images/post_children_3.jpg',
+  },
+  {
+    slug: 'fb-flешmob-dobrye-serdtsa-uspeh',
+    title: 'Флешмоб «Добрые сердца» — успех! 💙✨',
+    text: '150+ участников, собрано 67 000 ₽ за один вечер! Музыка, танцы, аукцион работ наших детей. Невероятная атмосфера!',
+    date: '5 авg 2026',
+    reactions: 44,
+    comments: 9,
+    source: 'facebook',
+    image: '/images/post_event_4.jpg',
+  },
+  {
+    slug: 'fb-novyy-godovoy-otchet-dostupen',
+    title: 'Годовой отчёт доступен! 📊📄',
+    text: 'За год помогли 89 детям, провели 24 курса реабилитации, привлекли 2.4 млн ₽. 94% средств пошло напрямую на помощь. Полный отчёт на сайте.',
+    date: '3 авг 2026',
+    reactions: 31,
+    comments: 7,
+    source: 'facebook',
+    image: '/images/post_achievement_1.jpg',
+  },
+  {
+    slug: 'fb-den-rozhdeniya-fonda-5-let',
+    title: 'Фонду исполнилось 5 лет! 🎂🎉',
+    text: '5 лет помощи, надежды и любви! За это время мы поддержали более 300 семей. Празднуем с детьми, волонтёрами и друзьями!',
+    date: '30 июл 2026',
+    reactions: 62,
+    comments: 15,
+    source: 'facebook',
+    image: '/images/post_event_5.jpg',
+  },
+  {
+    slug: 'fb-master-klass-po-art-terapii',
+    title: 'Мастер-класс по арт-терапии! 🎨🖌️',
+    text: 'Дети рисуют свои мечты! Присоединяйтесь к бесплатным занятиям по арт-терапии каждую субботу. Результаты поражают — дети раскрываются!',
+    date: '27 июл 2026',
+    reactions: 29,
+    comments: 4,
+    source: 'facebook',
+    image: '/images/post_charity_work.jpg',
+  },
+  {
+    slug: 'fb-podopechnaya-anya-nachala-goit',
+    title: 'Аня начала ходить! 🚶‍♀️💫',
+    text: 'Чудо случается! Аня, которая не могла стоять, после 6 месяцев реабилитации сделала первые самостоятельные шаги! Слёзы радости у всех!',
+    date: '24 июл 2026',
+    reactions: 87,
+    comments: 23,
+    hasDonation: true,
+    source: 'facebook',
+    image: '/images/post_rehab_2.jpg',
+  },
+  {
+    slug: 'fb-partnerskaya-akciya-s-magazinom',
+    title: 'Партнёрская акция с магазином! 🛒💝',
+    text: 'При покупке в магазинах-партнёрах 1% уходит в фонд! Уже привлечено 15 000 ₽ за месяц. Список партнёров на нашем сайте.',
+    date: '21 июл 2026',
+    reactions: 19,
+    comments: 3,
+    source: 'facebook',
+    image: '/images/post_children_4.jpg',
+  },
+  {
+    slug: 'fb-volonterskiy-den-priema-novyh',
+    title: 'День приёма новых волонтёров! 🤝🌟',
+    text: 'Хотите помочь? Приходите на наше собрание! Расскажем о возможностях, познакомим с командой. Ваше время может изменить чью-то жизнь!',
+    date: '18 июл 2026',
+    reactions: 25,
+    comments: 8,
+    source: 'facebook',
+    image: '/images/post_charity_work.jpg',
+  },
 ]
 ]
 
@@ -259,6 +461,12 @@ export default function Home() {
               <a href={GROUP.vkUrl} target="_blank" rel="noopener noreferrer">
                 <Globe className="h-4 w-4 mr-1" />
                 <span className="hidden sm:inline">ВК</span>
+              </a>
+            </Button>
+            <Button variant="outline" size="sm" asChild>
+              <a href={GROUP.fbUrl} target="_blank" rel="noopener noreferrer">
+                <Globe className="h-4 w-4 mr-1" />
+                <span className="hidden sm:inline">FB</span>
               </a>
             </Button>
             <Button size="sm" asChild>
@@ -638,7 +846,15 @@ export default function Home() {
                     )}
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-                        <span>{post.date}</span>
+                        <div className="flex items-center gap-2">
+                          <span>{post.date}</span>
+                          {post.source === 'facebook' && (
+                            <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                              <Globe className="h-3 w-3 mr-1" />
+                              Facebook
+                            </Badge>
+                          )}
+                        </div>
                         {post.hasDonation && (
                           <Badge variant="secondary" className="text-xs bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">
                             <Heart className="h-3 w-3 mr-1 fill-current" />
