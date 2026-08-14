@@ -403,7 +403,6 @@ const POSTS = [
     image: '/images/post_charity_work.jpg',
   },
 ]
-]
 
 const GALLERY_IMAGES = [
   { src: '/images/post_children_3.jpg', alt: 'Дети на занятии' },
