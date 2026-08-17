@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "title": "CF 'Achievement-Children' — Charitable Foundation for Children",
+    "description": "We believe that every child deserves a happy and healthy childhood! The Achievement-Children Foundation strives for transparency and openness in its work."
+  },
+  "nav": {
+    "about": "About",
+    "children": "Children",
+    "help": "Help",
+    "news": "News",
+    "gallery": "Gallery",
+    "contacts": "Contacts"
+  },
+  "hero": {
+    "badge": "Charitable Foundation",
+    "title": "Every child deserves",
+    "titleHighlight": "a happy and healthy childhood",
+    "description": "We help children with developmental disabilities undergo rehabilitation, receive necessary treatment and equipment. Together we can make the world kinder!",
+    "donateButton": "Donate Now",
+    "learnMore": "Learn More"
+  },
+  "stats": {
+    "title": "Our Work in Numbers",
+    "members": "Subscribers",
+    "posts": "Posts",
+    "years": "Years of Operation"
+  },
+  "about": {
+    "title": "About the Foundation",
+    "description": "The Achievement-Children Charitable Foundation helps children with developmental disabilities and their families. We organize rehabilitation courses, purchase necessary equipment, and hold events for children.",
+    "transparency": "Transparency and Accountability",
+    "transparencyText": "We regularly publish reports on our work and use of funds raised. 97% of all proceeds go directly to helping children."
+  },
+  "children": {
+    "title": "Our Beneficiaries",
+    "age": "years old",
+    "diagnosis": "Diagnosis",
+    "story": "Story",
+    "need": "What is needed"
+  },
+  "help": {
+    "title": "How to Help",
+    "subtitle": "EVERYONE CAN BE PART OF OUR PROJECTS",
+    "description": "You can choose any convenient way to make voluntary donations. TOGETHER WE WILL MAKE THE WORLD KINDER!",
+    "bankDetails": "Bank Details",
+    "qrCode": "QR Code for Donations",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "bank": {
+    "name": "Recipient",
+    "inn": "TIN",
+    "kpp": "RRC",
+    "bik": "BIC",
+    "account": "Account Number",
+    "bank": "Bank",
+    "correspondentAccount": "Correspondent Account",
+    "purpose": "Payment Purpose"
+  },
+  "news": {
+    "title": "Foundation News",
+    "readMore": "Read More",
+    "reactions": "reactions",
+    "comments": "comments"
+  },
+  "gallery": {
+    "title": "Photo Gallery"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "socials": "Find us on social media"
+  },
+  "footer": {
+    "copyright": "© 2026 CF 'Achievement-Children'. All rights reserved."
+  },
+  "common": {
+    "vk": "VK",
+    "fb": "FB",
+    "donate": "Donate",
+    "loading": "Loading..."
+  }
+}
